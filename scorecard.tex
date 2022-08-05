@@ -2,8 +2,9 @@
 
 \usepackage[%
 	landscape,
-	left=0in,
-	right=0in
+	left=0.5in,
+	right=0.5in,
+	top=0.5in
 ]{geometry}
 \usepackage{multirow}
 \usepackage{array}
@@ -12,6 +13,7 @@
 \usepackage{xcolor}
 \usepackage{lmodern}
 \usepackage[T1]{fontenc}
+\usepackage{tabularx}
 
 \usetikzlibrary{shapes.geometric}
 
@@ -24,14 +26,20 @@
 \newcommand{\grayDiamond}{%
 	\adjustbox{%
 		valign=M,
-		center=0.27in
+		center=1.2\hsize
+		% right=0.1\hsize
 	}{%
 		\begin{tikzpicture}
 			\node[
 				diamond,
 				draw=sysGray,
-				thin
+				thin,
 			] (d) at (0,0){};
+			% \node[
+			% 	diamond,
+			% 	draw=sysGray,
+			% 	thin,
+			% ] (d) at (0.25,0){};
 		\end{tikzpicture}
 	}
 }
@@ -50,9 +58,15 @@
 \newcommand{\hNum}{\textcolor{sysGray6}{\textsc{\#}}}
 \newcommand{\hName}{\textcolor{sysGray6}{\textsc{player}}}
 \newcommand{\hPos}{\textcolor{sysGray6}{\textsc{p}}}
+\newcommand{\sctext}[1]{\textcolor{sysGray6}{\textsc{#1}}}
 
-\newcommand{\battingSide}{%
-	\begin{tabular}[c]{|c|M{0.5in}|c|M{0.2in}|M{0.2in}|M{0.2in}|M{0.2in}|M{0.2in}|M{0.2in}|M{0.2in}|M{0.2in}|M{0.2in}|M{0.2in}|}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+
+% \renewcommand{\arraystretch}{1}
+
+\newcommand{\battingSideX}{%
+	\begin{tabularx}{0.6\textwidth}[l]{|c|M{0.75in}|c|Y|Y|Y|Y|Y|Y|Y|Y|Y|Y|}
 		\hline
 		\hNum
 			&\hName
@@ -69,31 +83,39 @@
 		\batter
 		\batter
 		\batter
-	\end{tabular}
+	\end{tabularx}
 }
 
-\renewcommand{\arraystretch}{1}
-\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+\newcommand{\pitchingSide}{%
+	\begin{tabularx}{0.3\textwidth}[l]{|c|M{0.75in}|Y|Y|Y|Y|Y|Y|}
+		\hline
+		\sctext{\#} & \sctext{Pitcher} & \sctext{IP} & \sctext{H} & \sctext{R} & \sctext{ER} & \sctext{W} & \sctext{K} \\
+		\hline &&&&&&& \\
+		\hline &&&&&&& \\
+		\hline &&&&&&& \\
+		\hline &&&&&&& \\
+		\hline &&&&&&& \\
+		\hline &&&&&&& \\
+		\hline &&&&&&& \\
+		\hline
+	\end{tabularx}
+}
 
 \begin{document}
 
 	\thispagestyle{empty}
 
-	\quad\quad
 	\begin{tabular}{l p{1in} l p{1in} l p{1in}}
-		\textsc{home:}
-		& &
-		\textsc{away:}
-		& & \textsc{date:}
-		& \\
+		\textsc{home:} & \hrulefill &
+		\textsc{away:} & \hrulefill &
+		\textsc{date:} & \hrulefill \\
 	\end{tabular}
 
-	\vspace{1em}
+	\vfill
 
-	\begin{center}
-		\battingSide
-		\quad
-		\battingSide
-	\end{center}
+	\battingSideX \qquad \pitchingSide
 
+	\vfill
+
+	\battingSideX \qquad \pitchingSide
 \end{document}
